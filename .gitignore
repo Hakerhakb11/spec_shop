@@ -2,3 +2,4 @@ __pycache__
 SPEC.md
 .env
 .venv
+.vscode
