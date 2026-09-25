@@ -9,7 +9,7 @@ class CategoryResponse(BaseModel):
     id: int
     name: str
     parent_id: int | None = None
-    attributes_schema: dict
+    attributes_schema: dict[str, Any] | None
 
 
 class ProductResponse(BaseModel):
@@ -19,7 +19,7 @@ class ProductResponse(BaseModel):
     title: str
     category_id: int
     description: str | None
-    attributes: dict[str, Any]
+    attributes: dict[str, Any] | None
 
 
 class ProductVariantResponse(BaseModel):
@@ -29,7 +29,7 @@ class ProductVariantResponse(BaseModel):
     sku: str
     product_id: int
     price: int
-    attributes: dict[str, Any]
+    attributes: dict[str, Any] | None
 
 
 class StoreResponse(BaseModel):
@@ -43,7 +43,6 @@ class StoreResponse(BaseModel):
 class InventoryResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
     store_id: int
-    variant_id: int
+    product_variant_id: int
     quantity: int
