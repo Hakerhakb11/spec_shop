@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 from app.db.base import Base
@@ -17,7 +19,7 @@ class Category(Base):
     attributes_schema: Mapped[dict[str, Any] | None] = mapped_column(
         JSONB, nullable=True
     )
-    products: Mapped[list['Product']] = relationship(back_populates='category')
+    products: Mapped[list[Product]] = relationship(back_populates='category')
 
 
 class Product(Base):
@@ -32,8 +34,8 @@ class Product(Base):
     description: Mapped[str | None] = mapped_column(String(255), nullable=True)
     attributes: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
 
-    category: Mapped['Category'] = relationship(back_populates='products')
-    product_variants: Mapped[list['ProductVariant']] = relationship(
+    category: Mapped[Category] = relationship(back_populates='products')
+    product_variants: Mapped[list[ProductVariant]] = relationship(
         back_populates='product'
     )
 
@@ -54,8 +56,8 @@ class ProductVariant(Base):
         JSONB, default=dict, nullable=True
     )
 
-    product: Mapped['Product'] = relationship(back_populates='product_variants')
-    inventories: Mapped[list['Inventory']] = relationship(
+    product: Mapped[Product] = relationship(back_populates='product_variants')
+    inventories: Mapped[list[Inventory]] = relationship(
         back_populates='product_variant'
     )
 
@@ -67,7 +69,7 @@ class Store(Base):
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     address: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    inventories: Mapped[list['Inventory']] = relationship(back_populates='store')
+    inventories: Mapped[list[Inventory]] = relationship(back_populates='store')
 
 
 class Inventory(Base):
@@ -83,10 +85,10 @@ class Inventory(Base):
     )
     quantity: Mapped[int] = mapped_column(default=0, nullable=False)
 
-    store: Mapped['Store'] = relationship(
+    store: Mapped[Store] = relationship(
         back_populates='inventories',
     )
 
-    product_variant: Mapped['ProductVariant'] = relationship(
+    product_variant: Mapped[ProductVariant] = relationship(
         back_populates='inventories',
     )
