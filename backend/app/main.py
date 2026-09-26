@@ -1,3 +1,4 @@
+from app.modules.products.router import router as product_router
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -11,3 +12,6 @@ async def root():
 @app.get('/health', tags=['System'])
 async def health_check():
     return {'status': 'ok', 'message': 'API is running'}
+
+
+app.include_router(product_router)
