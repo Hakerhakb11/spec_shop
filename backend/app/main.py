@@ -1,4 +1,4 @@
-from app.modules.products.router import router as product_router
+from app.modules.catalog.router import router as product_router
 from fastapi import FastAPI
 
 app = FastAPI()

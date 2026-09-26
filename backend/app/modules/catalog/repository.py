@@ -1,4 +1,4 @@
-from app.modules.products.models import Product
+from app.modules.catalog.models import Product
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
