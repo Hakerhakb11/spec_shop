@@ -18,5 +18,16 @@ services:
       timeout: 5s
       retries: 5
 
+  test_db:
+    image: "postgres:17"
+    container_name: test_spec_shop_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: test_shop_user
+      POSTGRES_PASSWORD: test_shop_password
+      POSTGRES_DB: test_shop_db
+    ports:
+      - "5433:5432"
+
 volumes:
   postgres_data:
