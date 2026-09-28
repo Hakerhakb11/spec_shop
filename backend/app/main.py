@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.modules.catalog.router import router as product_router
+from app.modules.catalog.router import router as catalog_router
 
 app = FastAPI()
 
@@ -15,4 +15,4 @@ async def health_check():
     return {'status': 'ok', 'message': 'API is running'}
 
 
-app.include_router(product_router)
+app.include_router(catalog_router)
