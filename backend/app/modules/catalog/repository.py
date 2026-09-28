@@ -9,3 +9,11 @@ async def get_products(db: AsyncSession) -> list[Product]:
 
     result = await db.scalars(statement)
     return list(result.all())
+
+
+async def get_categories(db: AsyncSession) -> list[Category]:
+    statement = select(Category)
+
+    result = await db.scalars(statement)
+    return list(result.all())
+
