@@ -1,6 +1,7 @@
-from app.modules.catalog.models import Product
 from sqlalchemy import select
-from sqlalchemy.orm import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.modules.catalog.models import Category, Product
 
 
 async def get_products(db: AsyncSession) -> list[Product]:

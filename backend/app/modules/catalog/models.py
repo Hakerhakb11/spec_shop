@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.db.base import Base
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.db.base import Base
 
 
 class Category(Base):
