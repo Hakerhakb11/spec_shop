@@ -12,10 +12,27 @@ class CategoryResponse(BaseModel):
     attributes_schema: dict[str, Any] | None
 
 
+class CategoryCreateRequest(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    name: str
+    parent_id: int | None = None
+    attributes_schema: dict[str, Any] | None
+
+
 class ProductResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    title: str
+    category_id: int
+    description: str | None
+    attributes: dict[str, Any] | None
+
+
+class ProductCreateRequest(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     title: str
     category_id: int
     description: str | None
