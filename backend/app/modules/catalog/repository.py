@@ -16,4 +16,3 @@ async def get_categories(db: AsyncSession) -> list[Category]:
 
     result = await db.scalars(statement)
     return list(result.all())
-

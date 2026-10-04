@@ -29,8 +29,13 @@ build-backend = "poetry.core.masonry.api"
 dev = [
     "pytest (>=9.1.1,<10.0.0)",
     "httpx (>=0.28.1,<0.29.0)",
-    "pytest-asyncio (>=1.4.0,<2.0.0)"
+    "pytest-asyncio (>=1.4.0,<2.0.0)",
+    "ruff (>=0.16.10,<0.17.0)",
+    "pre-commit (>=4.6.2,<5.0.0)"
 ]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+
+[tool.ruff.lint]
+per-file-ignores = { "**/conftest.py" = ["E402"] }
