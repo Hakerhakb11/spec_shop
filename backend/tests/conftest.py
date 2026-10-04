@@ -1,13 +1,13 @@
 import os
 
 TEST_DATABASE_URL = (
-    'postgresql+psycopg://test_shop_user:test_shop_password@localhost:5433/test_shop_db'
+    "postgresql+psycopg://test_shop_user:test_shop_password@localhost:5433/test_shop_db"
 )
-os.environ['POSTGRES_USER'] = 'test_shop_user'
-os.environ['POSTGRES_PASSWORD'] = 'test_shop_password'
-os.environ['POSTGRES_DB'] = 'test_shop_db'
-os.environ['POSTGRES_PORT'] = '5433'
-os.environ['DATABASE_URL'] = TEST_DATABASE_URL
+os.environ["POSTGRES_USER"] = "test_shop_user"
+os.environ["POSTGRES_PASSWORD"] = "test_shop_password"
+os.environ["POSTGRES_DB"] = "test_shop_db"
+os.environ["POSTGRES_PORT"] = "5433"
+os.environ["DATABASE_URL"] = TEST_DATABASE_URL
 
 import pytest
 from httpx import ASGITransport, AsyncClient
@@ -47,7 +47,7 @@ async def client():
     app.dependency_overrides[get_async_db] = override_get_async_db
 
     async with AsyncClient(
-        transport=ASGITransport(app=app), base_url='http://test'
+        transport=ASGITransport(app=app), base_url="http://test"
     ) as ac:
         yield ac
 

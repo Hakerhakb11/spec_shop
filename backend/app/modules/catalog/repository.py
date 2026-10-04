@@ -22,7 +22,6 @@ async def get_categories(db: AsyncSession) -> list[Category]:
 async def create_category(
     category_in: CategoryCreateRequest, db: AsyncSession
 ) -> Category:
-
     category = Category(
         name=category_in.name,
         parent_id=category_in.parent_id,
@@ -36,9 +35,7 @@ async def create_category(
     return category
 
 
-async def create_product(product_in: ProductCreateRequest, db: AsyncSession
-) -> Product:
-
+async def create_product(product_in: ProductCreateRequest, db: AsyncSession) -> Product:
     product = Product(
         title=product_in.title,
         category_id=product_in.category_id,
