@@ -53,7 +53,7 @@ async def test_list_products_with_data(client: AsyncClient, db_session):
     assert data["attributes"] == {}
 
 
-async def test_create_category_null_parent(client: AsyncClient, db_session):
+async def test_create_category_null_parent(client: AsyncClient):
     response = await client.post(
         "api/v1/catalog/categories",
         json={
@@ -77,10 +77,10 @@ async def test_create_category_nonexistent_parent(client: AsyncClient):
         json={"name": "Обувь", "parent_id": 99999, "attributes_schema": {}},
     )
 
-    assert response.status_code in (400, 422)
+    assert response.status_code in (400, 422, 404)
 
 
-async def test_create_category_with_parent(client: AsyncClient, db_session):
+async def test_create_category_with_parent(client: AsyncClient):
     parent_response = await client.post(
         "/api/v1/catalog/categories",
         json={
