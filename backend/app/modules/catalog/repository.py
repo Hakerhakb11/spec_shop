@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,13 +20,39 @@ async def get_categories(db: AsyncSession) -> list[Category]:
     return list(result.all())
 
 
+async def get_categories_by_id(
+    db: AsyncSession, category_id: int | None
+) -> Category | None:
+    statement = select(Category).where(Category.id == category_id)
+
+    result = await db.scalars(statement)
+    return result.first()
+
+
 async def create_category(
     category_in: CategoryCreateRequest, db: AsyncSession
 ) -> Category:
+    parent_category = None
+
+    if category_in.parent_id is not None:
+        parent_category = await get_categories_by_id(db, category_in.parent_id)
+        if not parent_category:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Parent category with id {category_in.parent_id} not found",
+            )
+
+    if parent_category and parent_category.attributes_schema:
+        final_attributes = (
+            parent_category.attributes_schema | category_in.attributes_schema
+        )
+    else:
+        final_attributes = category_in.attributes_schema
+
     category = Category(
         name=category_in.name,
         parent_id=category_in.parent_id,
-        attributes_schema=category_in.attributes_schema,
+        attributes_schema=final_attributes,
     )
 
     db.add(category)
