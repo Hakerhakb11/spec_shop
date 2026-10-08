@@ -1,16 +1,17 @@
 from logging.config import fileConfig
 
 from alembic import context
+from sqlalchemy import engine_from_config, pool
+
 from app.core.config import settings
 from app.db.base import Base
-from app.modules.products.models import (
+from app.modules.catalog.models import (  # noqa: F401
     Category,
     Inventory,
     Product,
     ProductVariant,
     Store,
 )
-from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,8 +19,8 @@ from sqlalchemy import engine_from_config, pool
 config = context.config
 
 config.set_main_option(
-    'sqlalchemy.url',
-    settings.database_url.replace('%', '%%'),
+    "sqlalchemy.url",
+    settings.database_url.replace("%", "%%"),
 )
 
 # Interpret the config file for Python logging.
@@ -51,12 +52,12 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option('sqlalchemy.url')
+    url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
-        dialect_opts={'paramstyle': 'named'},
+        dialect_opts={"paramstyle": "named"},
     )
 
     with context.begin_transaction():
@@ -72,7 +73,7 @@ def run_migrations_online() -> None:
     """
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
-        prefix='sqlalchemy.',
+        prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
