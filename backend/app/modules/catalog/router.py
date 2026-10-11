@@ -29,9 +29,9 @@ async def list_products(db: Annotated[AsyncSession, Depends(get_async_db)]):
     "/products", response_model=ProductResponse, status_code=status.HTTP_201_CREATED
 )
 async def create_product_endpoint(
-    product_in: ProductCreateRequest, db: Annotated[AsyncSession, Depends(get_async_db)]
+    db: Annotated[AsyncSession, Depends(get_async_db)], product_in: ProductCreateRequest
 ):
-    return await create_product(product_in, db)
+    return await create_product(db, product_in)
 
 
 @router.get("/categories", response_model=list[CategoryResponse])
@@ -43,7 +43,7 @@ async def list_categories(db: Annotated[AsyncSession, Depends(get_async_db)]):
     "/categories", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED
 )
 async def create_category_endpoint(
-    category_in: CategoryCreateRequest,
     db: Annotated[AsyncSession, Depends(get_async_db)],
+    category_in: CategoryCreateRequest,
 ):
-    return await create_category(category_in, db)
+    return await create_category(db, category_in)

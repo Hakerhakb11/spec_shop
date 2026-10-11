@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.modules.catalog.router import router as catalog_router
+from app.modules.users.router import router as users_router
 
 app = FastAPI()
 
@@ -16,3 +17,4 @@ async def health_check():
 
 
 app.include_router(catalog_router)
+app.include_router(users_router)

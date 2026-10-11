@@ -25,12 +25,12 @@ async def get_categories_by_id(
 ) -> Category | None:
     statement = select(Category).where(Category.id == category_id)
 
-    result = await db.scalars(statement)
-    return result.first()
+    result = await db.scalar(statement)
+    return result
 
 
 async def create_category(
-    category_in: CategoryCreateRequest, db: AsyncSession
+    db: AsyncSession, category_in: CategoryCreateRequest
 ) -> Category:
     parent_category = None
 
@@ -62,7 +62,7 @@ async def create_category(
     return category
 
 
-async def create_product(product_in: ProductCreateRequest, db: AsyncSession) -> Product:
+async def create_product(db: AsyncSession, product_in: ProductCreateRequest) -> Product:
     product = Product(
         title=product_in.title,
         category_id=product_in.category_id,
