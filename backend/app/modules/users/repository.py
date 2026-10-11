@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import pwd_context
+from app.core.security import password_hash
 from app.modules.users.models import User
 from app.modules.users.schemas import UserCreateRequest
 
@@ -23,7 +23,7 @@ async def create_user(db: AsyncSession, user_in: UserCreateRequest) -> User:
             detail=f"User with email '{user_in.email}' already exists",
         )
 
-    hashed_password = pwd_context.hash(user_in.password)
+    hashed_password = password_hash.hash(user_in.password)
     user = User(email=user_in.email, hashed_password=hashed_password)
 
     db.add(user)
