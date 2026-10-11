@@ -9,7 +9,7 @@ class UserResponse(BaseModel):
     is_active: bool
 
 
-class UserCreate(BaseModel):
+class UserCreateRequest(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     email: str
