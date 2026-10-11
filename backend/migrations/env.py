@@ -12,6 +12,7 @@ from app.modules.catalog.models import (  # noqa: F401
     ProductVariant,
     Store,
 )
+from app.modules.users.models import User  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
