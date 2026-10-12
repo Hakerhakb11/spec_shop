@@ -16,6 +16,12 @@ async def get_user_by_email(
     return await db.scalar(statement)
 
 
+async def get_user_by_id(db: AsyncSession, id: str) -> User | None:
+    statement = select(User).where(User.id == id)
+
+    return await db.scalar(statement)
+
+
 async def create_user(db: AsyncSession, user_in: UserCreateRequest) -> User:
     if await get_user_by_email(db, user_in.email):
         raise HTTPException(
