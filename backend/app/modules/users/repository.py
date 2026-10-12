@@ -7,10 +7,7 @@ from app.modules.users.models import User
 from app.modules.users.schemas import UserCreateRequest
 
 
-async def get_user_by_email(
-    db: AsyncSession,
-    email: str,
-) -> User | None:
+async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
     statement = select(User).where(User.email == email)
 
     return await db.scalar(statement)

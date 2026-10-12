@@ -19,7 +19,7 @@ async def login(db: AsyncSession, login_in: LoginRequest) -> TokenResponse | Non
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_UNAUTHORIZED,
-            detail="User is't active",
+            detail="Inactive user",
         )
 
     if not verify_password(login_in.password, user.hashed_password):
