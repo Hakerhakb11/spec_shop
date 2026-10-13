@@ -22,13 +22,8 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    user_id_str = decode_access_token(token=token)
-    if not user_id_str:
-        raise credentials_exception
-
-    try:
-        user_id = int(user_id_str)
-    except ValueError:
+    user_id = decode_access_token(token=token)
+    if not user_id:
         raise credentials_exception
 
     user = await get_user_by_id(db, user_id)

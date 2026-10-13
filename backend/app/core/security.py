@@ -27,10 +27,10 @@ def create_access_token(user_id: int) -> str:
     return encoded_jwt
 
 
-def decode_access_token(token: str) -> str | None:
+def decode_access_token(token: str) -> int | None:
     try:
         payload = jwt.decode(
-            token, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
+            token, settings.JWT_SECRET_KEY, algorithm=[settings.JWT_ALGORITHM]
         )
         return payload.get("sub")
     except jwt.PyJWTError:

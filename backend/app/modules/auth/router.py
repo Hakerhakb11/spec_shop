@@ -7,7 +7,7 @@ from app.db.dependencies import get_async_db
 from app.modules.auth.schemas import LoginRequest, TokenResponse
 from app.modules.auth.service import login
 
-router = APIRouter(prefix="/api/v1/auth", tags=["Authintication"])
+router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
 
 @router.post("/login", response_model=TokenResponse)

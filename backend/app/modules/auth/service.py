@@ -16,17 +16,17 @@ async def login(db: AsyncSession, login_in: LoginRequest) -> TokenResponse | Non
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_403_UNAUTHORIZED,
-            detail="Inactive user",
-        )
-
     if not verify_password(login_in.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect password or email",
             headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Inactive user",
         )
 
     access_token = create_access_token(user_id=user.id)
