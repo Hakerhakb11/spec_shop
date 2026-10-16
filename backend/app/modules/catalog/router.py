@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.dependencies import get_async_db
+from app.modules.auth.dependencies import get_current_user
 from app.modules.catalog.repository import (
     create_category,
     create_product,
@@ -16,6 +17,7 @@ from app.modules.catalog.schemas import (
     ProductCreateRequest,
     ProductResponse,
 )
+from app.modules.users.models import User
 
 router = APIRouter(prefix="/api/v1/catalog", tags=["Catalog"])
 
@@ -29,7 +31,9 @@ async def list_products(db: Annotated[AsyncSession, Depends(get_async_db)]):
     "/products", response_model=ProductResponse, status_code=status.HTTP_201_CREATED
 )
 async def create_product_endpoint(
-    db: Annotated[AsyncSession, Depends(get_async_db)], product_in: ProductCreateRequest
+    db: Annotated[AsyncSession, Depends(get_async_db)],
+    product_in: ProductCreateRequest,
+    _: Annotated[User, Depends(get_current_user)],
 ):
     return await create_product(db, product_in)
 
@@ -45,5 +49,6 @@ async def list_categories(db: Annotated[AsyncSession, Depends(get_async_db)]):
 async def create_category_endpoint(
     db: Annotated[AsyncSession, Depends(get_async_db)],
     category_in: CategoryCreateRequest,
+    _: Annotated[User, Depends(get_current_user)],
 ):
     return await create_category(db, category_in)
