@@ -6,7 +6,7 @@ from app.modules.auth.schemas import LoginRequest, TokenResponse
 from app.modules.users.repository import get_user_by_email
 
 
-async def login(db: AsyncSession, login_in: LoginRequest) -> TokenResponse | None:
+async def login(db: AsyncSession, login_in: LoginRequest) -> TokenResponse:
     user = await get_user_by_email(db, login_in.email)
 
     if not user:
