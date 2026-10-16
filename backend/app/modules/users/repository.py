@@ -13,8 +13,8 @@ async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
     return await db.scalar(statement)
 
 
-async def get_user_by_id(db: AsyncSession, id: str) -> User | None:
-    statement = select(User).where(User.id == id)
+async def get_user_by_id(db: AsyncSession, user_id: int) -> User | None:
+    statement = select(User).where(User.id == user_id)
 
     return await db.scalar(statement)
 

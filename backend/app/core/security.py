@@ -36,5 +36,7 @@ def decode_access_token(token: str) -> int | None:
         if user_id is None:
             return None
         return int(user_id)
-    except (jwt.PyJWTError, ValueError):
+    except jwt.PyJWTError:
+        return None
+    except ValueError:
         return None
