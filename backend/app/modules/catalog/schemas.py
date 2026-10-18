@@ -26,7 +26,7 @@ class ProductResponse(BaseModel):
     id: int
     title: str
     category_id: int
-    description: str | None
+    description: str | None = None
     attributes: dict[str, Any] | None
 
 
