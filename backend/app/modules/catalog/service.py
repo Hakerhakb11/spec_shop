@@ -36,7 +36,7 @@ async def create_category(
         attributes_schema=final_attributes,
     )
 
-    save_category(db, category)
+    await save_category(db, category)
     await db.commit()
 
     return category
@@ -57,7 +57,7 @@ async def create_product(db: AsyncSession, product_in: ProductCreateRequest) -> 
         attributes=product_in.attributes,
     )
 
-    save_product(db, product)
+    await save_product(db, product)
     await db.commit()
 
     return product

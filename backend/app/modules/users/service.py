@@ -17,6 +17,6 @@ async def register_user(db: AsyncSession, user_in: UserCreateRequest) -> User:
     hashed_password = hash_password(user_in.password)
     user = User(email=user_in.email, hashed_password=hashed_password)
 
-    save_user(db, user)
+    await save_user(db, user)
     await db.commit()
     return user
