@@ -47,3 +47,30 @@ async def test_read_users_me_unauthorized(client: AsyncClient):
     response = await client.get("/api/v1/users/me")
 
     assert response.status_code in (401, 403)
+
+
+async def test_create_user_invalid_email(client: AsyncClient):
+    response = await client.post(
+        "/api/v1/users/create",
+        json={"email": "not-an-email", "password": "securepassword123"},
+    )
+
+    assert response.status_code == 422
+
+
+async def test_create_user_short_password(client: AsyncClient):
+    response = await client.post(
+        "/api/v1/users/create",
+        json={"email": "valid@example.com", "password": "short"},
+    )
+
+    assert response.status_code == 422
+
+
+async def test_create_user_long_password(client: AsyncClient):
+    response = await client.post(
+        "/api/v1/users/create",
+        json={"email": "valid@example.com", "password": "a" * 129},
+    )
+
+    assert response.status_code == 422
