@@ -52,3 +52,12 @@ async def test_login_inactive_user(client: AsyncClient, db_session):
     )
 
     assert response.status_code == 403
+
+
+async def test_login_invalid_email_format(client: AsyncClient):
+    response = await client.post(
+        "/api/v1/auth/login",
+        json={"email": "bad-email-format", "password": "secretpassword123"},
+    )
+
+    assert response.status_code == 422
