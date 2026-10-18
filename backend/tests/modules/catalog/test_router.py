@@ -58,7 +58,22 @@ async def test_create_category_unauthorized(client: AsyncClient):
         "/api/v1/catalog/categories",
         json={"name": "Обувь", "parent_id": None, "attributes_schema": {}},
     )
-    assert response.status_code in (401, 403)
+    assert response.status_code == 401
+
+
+async def test_create_category_invalid_token(client: AsyncClient):
+    client.headers.update({"Authorization": "Bearer invalid-token"})
+
+    response = await client.post(
+        "/api/v1/catalog/categories",
+        json={
+            "name": "Обувь",
+            "parent_id": None,
+            "attributes_schema": {},
+        },
+    )
+
+    assert response.status_code == 401
 
 
 async def test_create_category_null_parent(auth_client: AsyncClient):
