@@ -10,7 +10,5 @@ class UserResponse(BaseModel):
 
 
 class UserCreateRequest(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     email: str
     password: str

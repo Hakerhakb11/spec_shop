@@ -13,8 +13,6 @@ class CategoryResponse(BaseModel):
 
 
 class CategoryCreateRequest(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     name: str
     parent_id: int | None = None
     attributes_schema: dict[str, Any] | None
@@ -31,11 +29,9 @@ class ProductResponse(BaseModel):
 
 
 class ProductCreateRequest(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     title: str
     category_id: int
-    description: str | None
+    description: str | None = None
     attributes: dict[str, Any] | None
 
 
