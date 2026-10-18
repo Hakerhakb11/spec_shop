@@ -27,7 +27,7 @@ async def test_create_user_duplicate_email(client: AsyncClient):
     assert response_first.status_code == 201
 
     response_second = await client.post("/api/v1/users/create", json=payload)
-    assert response_second.status_code == 400
+    assert response_second.status_code == 409
 
     error_data = response_second.json()
     assert "detail" in error_data
